@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './MainPage.css';
 import '../styles.css';
 import * as api from '../api.js';
+import { formatDate } from '../util.js';
 
-export default function MainPage({ user, onFetchEvents, onSelectEvent }) {
+export default function MainPage({ user, eventsInProps, alreadyHasEvents, onFetchEvents, onSelectEvent }) {
   // State for events list
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(eventsInProps || []);
   const [loadingEvents, setLoadingEvents] = useState(false);
   const [fetchError, setFetchError] = useState('');
 
@@ -17,6 +18,7 @@ export default function MainPage({ user, onFetchEvents, onSelectEvent }) {
   const [addError, setAddError] = useState('');
 
   async function fetchEvents() {
+    setEvents([]);
     setLoadingEvents(true);
     setFetchError('');
     try {
@@ -58,8 +60,14 @@ export default function MainPage({ user, onFetchEvents, onSelectEvent }) {
     }
   };
 
+  async function handleRefreshEvents() {
+    await fetchEvents();
+  }
+
   useEffect(() => {
-    fetchEvents();
+    if (!alreadyHasEvents) {
+      fetchEvents();
+    }
   }, []);
 
   return (
@@ -94,6 +102,7 @@ export default function MainPage({ user, onFetchEvents, onSelectEvent }) {
               id="details"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
+              rows={3}
               required
             />
           </div>
@@ -107,16 +116,22 @@ export default function MainPage({ user, onFetchEvents, onSelectEvent }) {
         {loadingEvents && <p>Loading...</p>}
         {fetchError && <p className="error">{fetchError}</p>}
         {!loadingEvents && events.length === 0 && <p>No events found.</p>}
-        <ul>
-          {events.map((event) => (
-            <li key={event.id} onClick={() => onSelectEvent(event.id)}>
-              <span className="event-timestamp">
-                {new Date(event.timestamp).toLocaleString()}
-              </span>
-              <span className="event-name">{event.name}</span>
-            </li>
-          ))}
-        </ul>
+        {!loadingEvents && events.length > 0 && (
+          <ul>
+            {events.map((event) => (
+              <li key={event.id}>
+                <a href="#" onClick={() => onSelectEvent(event.id)}>
+                  <span>{formatDate(event.timestamp)}</span>
+                  <span>{' - '}</span>
+                  <span>{event.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        {!loadingEvents && <button className="refresh-button" onClick={handleRefreshEvents}>
+          Reload
+        </button>}
       </section>
     </>
   );

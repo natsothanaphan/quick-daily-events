@@ -8,6 +8,7 @@ import './styles.css';
 function App() {
   const [user, setUser] = useState(null);
   const [events, setEvents] = useState([]);
+  const [hasEvents, setHasEvents] = useState(false);
   const [eventId, setEventId] = useState(null);
 
   const handleSignIn = (user) => {
@@ -16,6 +17,7 @@ function App() {
 
   const handleFetchEvents = (events) => {
     setEvents(events);
+    setHasEvents(true);
   };
 
   const handleSelectEvent = (eventId) => {
@@ -30,6 +32,7 @@ function App() {
     <div className="App">
       {!user && <Auth onSignIn={handleSignIn} />}
       {user && !eventId && <MainPage user={user}
+        eventsInProps={events} alreadyHasEvents={hasEvents}
         onFetchEvents={handleFetchEvents} onSelectEvent={handleSelectEvent} />}
       {user && eventId && <DetailsPage user={user}
         events={events} eventId={eventId} onBack={handleBack} />}
