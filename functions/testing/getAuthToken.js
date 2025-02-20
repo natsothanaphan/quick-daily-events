@@ -1,4 +1,5 @@
-const admin = require("firebase-admin");
+const { initializeApp, cert } = require("firebase-admin/app");
+const { getAuth } = require("firebase-admin/auth");
 const fetch = require("node-fetch");
 require('dotenv').config({ path: 'testing/.env.local' });
 const fs = require("fs");
@@ -9,11 +10,11 @@ const SERVICE_ACCOUNT = JSON.parse(fs.readFileSync(process.env.SERVICE_ACCOUNT))
 const API_KEY = process.env.API_KEY;
 
 (async () => {
-  admin.initializeApp({
-    credential: admin.credential.cert(SERVICE_ACCOUNT),
+  initializeApp({
+    credential: cert(SERVICE_ACCOUNT),
   });
 
-  const customToken = await admin.auth().createCustomToken(UID);
+  const customToken = await getAuth().createCustomToken(UID);
 
   const resp = await fetch(
     `${BASE_URL}/www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${API_KEY}`,

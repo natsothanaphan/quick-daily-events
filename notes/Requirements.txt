@@ -1,0 +1,47 @@
+I want to make a personal React app to add and display daily events.
+For simplicity, there are 2 functionalities:
+1. Add event, time from now up to 48 hrs ahead.
+2. Display events from now - 12 hrs to now + 12 hrs.
+
+What is an event?
+- Timestamp: minute resolution, GMT (but displayed in local time)
+- Name: string
+- Details: string
+
+We use Firebase
+Auth = Firebase Auth
+Backend = Functions + Firestore.
+
+Subcollection by user id, event = {
+    id: (firestore auto-generated)
+    timestamp: timestamp
+    name: string
+    details: string
+}
+
+We should also probably index by timestamp.
+
+API
+POST /api/events
+- Add event
+- Auth token
+- Body: {
+    timestamp: timestamp
+    name: string
+    details: string
+}
+
+GET /api/events
+- Get events
+- Auth token
+
+Frontend
+React + Vite
+
+Main Page = List of events, by timestamp descending.
+Show only timestamp and name.
+Click on event -> go to Details Page.
+Has a form to add event.
+
+Details Page = also show details.
+Can go back to Main Page.
