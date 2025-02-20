@@ -53,10 +53,10 @@ app.post('/api/events', async (req, res) => {
 
     const now = new Date();
     const minAllowed = new Date(now.getTime() - 5 * 60 * 1000); // 5 minutes ago
-    const maxAllowed = new Date(now.getTime() + 48 * 60 * 60 * 1000); // 48 hours ahead
+    const maxAllowed = new Date(now.getTime() + 48 * 60 * 60 * 1000 + 5 * 60 * 1000); // 48 hours 5 minutes ahead
 
     if (eventDate < minAllowed || eventDate > maxAllowed) {
-      return res.status(400).json({ error: "Timestamp must be between 5 minutes ago and 48 hours ahead" });
+      return res.status(400).json({ error: "Timestamp must be between 5 minutes ago and 48 hours 5 minutes ahead" });
     }
 
     const eventData = {
