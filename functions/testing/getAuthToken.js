@@ -1,13 +1,14 @@
-const { initializeApp, cert } = require("firebase-admin/app");
-const { getAuth } = require("firebase-admin/auth");
-const fetch = require("node-fetch");
 require('dotenv').config({ path: 'testing/.env.local' });
-const fs = require("fs");
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getAuth } = require('firebase-admin/auth');
+const fetch = require('node-fetch');
+const fs = require('fs');
 
 const BASE_URL = process.env.BASE_URL;
-const UID = process.env.UID;
 const SERVICE_ACCOUNT = JSON.parse(fs.readFileSync(process.env.SERVICE_ACCOUNT));
 const API_KEY = process.env.API_KEY;
+
+const UID = process.argv[2];
 
 (async () => {
   initializeApp({
