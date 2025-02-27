@@ -1,4 +1,4 @@
-export async function ping(token) {
+const ping = async (token) => {
   console.log('api ping start', {});
   const resp = await fetch(`/api/ping`, {
     headers: { 'Authorization': `Bearer ${token}` },
@@ -13,13 +13,13 @@ export async function ping(token) {
   return data;
 };
 
-export async function addEvent(token, event) {
+const addEvent = async (token, event) => {
   console.log('api addEvent start', event);
   const resp = await fetch(`/api/events`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(event),
   });
@@ -33,7 +33,7 @@ export async function addEvent(token, event) {
   return data;
 };
 
-export async function getEvents(token) {
+const getEvents = async (token) => {
   console.log('api getEvents start');
   const resp = await fetch(`/api/events`, {
     headers: {
@@ -48,4 +48,8 @@ export async function getEvents(token) {
   const data = await resp.json();
   console.log('api getEvents done', { data });
   return data;
+};
+
+export default{
+  ping, addEvent, getEvents,
 };

@@ -1,15 +1,14 @@
 .event-info {
-  margin: 8px 0;
   width: 100%;
   max-width: 600px;
+  margin: 4px 0;
   word-break: break-word;
 }
-
-.event-info pre {
-  margin: 32px 0;
+.event-info > pre {
+  margin: 24px 0;
   white-space: pre-wrap;
 }
 
 .back-button {
-  margin: 8px 0;
+  margin: 4px 0;
 }
