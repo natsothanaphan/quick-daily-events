@@ -60,20 +60,19 @@ const MainPage = ({ user, eventsInProps, alreadyHasEvents, onFetchEvents, onSele
   return (
     <>
       <div className='add-event'>
-        <h2>Add event</h2>
         <form onSubmit={handleAddEvent}>
           <div>
-            <label htmlFor='.timestamp'>Timestamp: </label>
+            <label htmlFor='.timestamp'>Timestamp:</label>
             <input id='.timestamp' type='datetime-local' value={timestamp}
               onChange={(e) => setTimestamp(e.target.value)} required />
           </div>
           <div>
-            <label htmlFor='name'>Name: </label>
+            <label htmlFor='name'>Name:</label>
             <input id='name' type='text' value={name}
               onChange={(e) => setName(e.target.value)} required />
           </div>
           <div>
-            <label htmlFor='.details'>Details: </label>
+            <label htmlFor='.details'>Details:</label>
             <textarea id='.details' value={details}
               rows={3} onChange={(e) => setDetails(e.target.value)} required />
           </div>
@@ -82,12 +81,11 @@ const MainPage = ({ user, eventsInProps, alreadyHasEvents, onFetchEvents, onSele
       </div>
       <div className='events-list'>
         {loadingEvents && <p>Loading...</p>}
-        {!loadingEvents && events.length === 0 && <p>No events found.</p>}
+        {!loadingEvents && events.length === 0 && <p>No events</p>}
         {!loadingEvents && events.length > 0 && <ul>{events.map((event) => (
           <li key={event.id}><a href='#' onClick={() => onSelectEvent(event.id)}>
-            <span>{formatDate(event.timestamp)}</span>
-            <span>{' - '}</span>
-            <span>{event.name}</span>
+            <span>{'⏱️ '}</span><span>{formatDate(event.timestamp)}</span><span>{'–'}</span>
+            <span>{'🚀 '}</span><span>{event.name}</span>
           </a></li>))}
         </ul>}
         {!loadingEvents && <button className='refresh-button' onClick={handleRefreshEvents}>

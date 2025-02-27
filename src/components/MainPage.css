@@ -1,24 +1,24 @@
 .add-event {
   width: 100%;
   max-width: 600px;
-  margin: 24px 0;
+  margin: 16px 0;
 }
 .add-event > form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 .add-event > form > div {
   display: flex;
   align-items: center;
 }
-.add-event > form > label {
+.add-event > form > div > label {
   width: 96px;
   margin-right: 8px;
   text-align: right;
 }
-.add-event > form > input,
-.add-event > form > textarea {
+.add-event > form > div > input,
+.add-event > form > div > textarea {
   flex: 1;
 }
 .add-event > form > button {
@@ -28,7 +28,7 @@
 .events-list {
   width: 100%;
   max-width: 600px;
-  margin: 12px 0;
+  margin: 8px 0;
 }
 .events-list > ul {
   list-style: none;
@@ -36,9 +36,9 @@
   margin: 0;
 }
 .events-list > ul > li {
-  margin: 24px 0;
+  margin: 8px 0;
   word-break: break-all;
 }
 .refresh-button {
-  margin: 8px 0;
+  margin: 4px 0;
 }
