@@ -1,11 +1,10 @@
 .event-info {
-  margin: 8px 0;
   width: 100%;
   max-width: 600px;
+  margin: 8px 0;
   word-break: break-word;
 }
-
-.event-info pre {
+.event-info > pre {
   margin: 32px 0;
   white-space: pre-wrap;
 }

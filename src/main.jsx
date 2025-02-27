@@ -1,17 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import './styles.css'
-import App from './App.jsx'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import './index.css';
+import App from './App.jsx';
 
 const themeMode = import.meta.env.VITE_THEME_MODE;
-
-if (themeMode === "light") {
-  document.documentElement.setAttribute("theme-mode", "light");
-} else if (themeMode === "dark") {
-  document.documentElement.setAttribute("theme-mode", "dark");
+if (themeMode === 'light') {
+  document.documentElement.setAttribute('theme-mode', 'light');
+} else if (themeMode === 'dark') {
+  document.documentElement.setAttribute('theme-mode', 'dark');
 } else {
-  document.documentElement.removeAttribute("theme-mode");
+  document.documentElement.removeAttribute('theme-mode');
 }
 
 createRoot(document.getElementById('root')).render(
