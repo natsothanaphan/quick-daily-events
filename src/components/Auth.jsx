@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword,
+  setPersistence, browserSessionPersistence, onAuthStateChanged } from 'firebase/auth';
 import './Auth.css';
-import { alertAndLogErr } from '../utils.js';
+import { alertAndLogErr } from '../utils';
 
 const Auth = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(true);
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
+      await setPersistence(auth, browserSessionPersistence);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       onSignIn(userCredential.user);
     } catch (err) {
       alertAndLogErr(err);
     }
   };
+
+  useEffect(() => onAuthStateChanged(auth, (user) => {
+    setLoading(false);
+    if (user) onSignIn(user);
+  }), []);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <>
